@@ -1,0 +1,67 @@
+
+
+%--------------------------------------------------------------------------------
+\section{Open Problems}\label{sec:open_problems}
+%--------------------------------------------------------------------------------
+
+This paper has presented data structures for representing planar graphs 
+and triangulated terrains that are both succinct and efficient in the
+external memory setting.
+A possible extension of our technique for terrains would be to 
+investigate if these techniques could be extended to tetrahedral meshes.
+There are a number of succinct representations for triangulations which 
+we have described in Section~\ref{sec:background}, including 
+\cite{chuang_et_al_1998}, \cite{DBLP:conf/walcom/YamanakaN08}, 
+\cite{DBLP:conf/isaac/BarbayAHM07}, \cite{DBLP:conf/wads/AleardiDS05}, 
+and \cite{DBLP:journals/tcs/AleardiDS08}.
+However, we are unaware of any similar representation for tetrahedral
+meshes.
+The approach we use relies on the planarity of the augmented dual graph
+of a triangulation. 
+This planarity condition will not hold for a tetrahedral mesh.
+
+Efforts to represent triangulations succinctly fall into one of three
+categories; $k$-page embeddings (based on Jacobson \cite{jac_1989}); 
+canonical orderings of the vertices and edges (based 
+on \cite{chuang_et_al_1998}); and triangulation
+decomposition (based on \cite{DBLP:conf/wads/AleardiDS05}).
+Encoding tetrahedral meshes presents challenges regardless of
+which technique we select.
+
+$k$-page embeddings rely on the fact that for planar graphs and
+triangulations there is a page embedding for a small constant 
+value of $k$.
+It may be possible to show that a tetrahedral mesh can be 
+embedded with a suitably small $k$, but this appears to be 
+an open problem. 
+Existing techniques for canonical orderings all rely on 
+an embedding of the graph vertices in the plane, and thus 
+this approach could be directly extended graphs in
+higher dimensions.
+Finally, the third approach decomposes the triangulation into suitably 
+tiny triangulations
+and represents these smallest traingulations based on a succinct
+catalog of all possible tiny 
+triangulations~\cite{DBLP:conf/wads/AleardiDS05}.
+The additional complexity of a tetrahedral mesh, will create 
+challenges in encoding such a catalog, and in combining the 
+tiny tetrahedral meshes into a single structure.
+
+ \section{Explanations for Corrections too Long for Margin Notes}
+
+\begin{correction}\label{cor:j_index}
+The original formula here was:
+
+$\reglbl[i]{x} := \rankop[0]{\bdvec,k - \rankop[0]{\bdvec,\regpos{i}-1}} + \bdcount{i}$
+
+Which I re-wrote as:
+
+$\reglbl[i]{x} := \rankop[0]{\bdvec,k} - \rankop[0]{\bdvec,\regpos{i}-1} + \bdcount{i}$
+
+I assume there was in error and that the $k$ is the last argument of the initial
+rank operation.
+\end{correction}
+
+
+
+

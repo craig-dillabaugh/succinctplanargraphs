@@ -1,0 +1,86 @@
+% EDITING GUIDELINES
+%
+% * Limit lines to no more than 100 characters.  The default should be
+%   80 characters.  This leaves room for the addition of 20 new
+%   characters on the same line later on.
+%
+%   RATIONALE: Long lines are hard to read and cause trouble when
+%   viewing two versions of the file side by side (e.g., using vimdiff)
+%
+% * Start every sentence on a new line.
+%
+%   RATIONALE: This makes sentences so much easier to find using forward
+%   search in emacs or vim.
+%
+% * Do not justify paragraphs.  Particularly, when editing an existing
+%   version of the text, do not change line breaks apart from adding
+%   line breaks for lines that would otherwise be too long.
+%
+%   RATIONALE: This makes changes from previous versions so much easier
+%   to identify, particularly when using a VCS.  Adding a word and
+%   justifying the paragraph may change all the lines in the paragraph,
+%   making this look like a huge edit.  Without justification, the
+%   diff shows only the addition of the one word.
+
+% ------------------------------------------------------------------------------
+\section{Preliminaries}
+% ------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------------
+\paragraph{Rank and select queries on bit vectors.}
+% ------------------------------------------------------------------------------
+
+As is the case for a wide range of succinct data structures, our data
+structure relies on succinct representations of bit vectors
+that allow constant-time rank and select queries.
+Given a bit vector $S[1 \tdots N]$, and a bit value $x \in \{0, 1\}$, a
+$\rankop[x]{S, i}$ operation returns the number of $x$s in $S[1 \tdots
+i]$, while a $\selop[x]{S, r}$ operation returns the index of the
+$r$th $x$ in~$S$.
+In other words, $\selop[x]{S, r} = \min \set{i \mid \rankop[x]{S, i} = r}$.
+The problem of representing a bit vector succinctly to support
+$\rankopsym$ and $\selopsym$ operations in constant time in the word RAM model
+with word size $\ThetaOf{\lg N}$ bits has been considered in
+\cite{jac_1989,clark_96, DBLP:journals/talg/RamanRS07}, and these results can be
+directly applied to the external memory model.
+The following lemma summarizes the results of Jacobson~\cite{jac_1989} and
+Clark and Munro~\cite{clark_96} (part (a)), and
+Raman~\etal~\cite{DBLP:journals/talg/RamanRS07} (part (b)).
+
+% ------------------------------------------------------------------------------
+\begin{lemma}
+  \label{lem:rank_select}
+  A bit vector $S$ of length $N$ and containing $R$ $1$s can be
+  represented using either (a) $N + \ohOf{N}$ bits or (b) $\lg \binom{N}{R}
+  + \OhOf{N \lg \lg N / \lg N}$ bits to support the access to each bit, as
+  well as $\rankopsym$ and $\selopsym$ operations, in $\OhOf{1}$ time (or
+  $\OhOf{1}$ I/Os in external memory).\footnote{Note that $\log \binom{N}{R} +
+    \OhOf{N \log \log N / \log N} = \ohOf{N}$ as long as $R = \ohOf{N}$.}
+\end{lemma}
+% ------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------------
+\paragraph{Planar graph partitions.}
+% ------------------------------------------------------------------------------
+
+Frederickson \cite{Frederickson87} introduced the notion of an
+\emph{$r$-partition} of an $n$-vertex graph $G$, which is a collection of
+$\ThetaOf{n / r}$ subgraphs of size at most $r$ such that for every
+edge $xy$ of~$G$ there exists a subgraph that contains both $x$ and $y$.
+A vertex $x$ is \emph{interior} to a subgraph if no other
+subgraph in the partition contains $x$, otherwise $x$ is a
+\emph{boundary vertex}.
+Frederickson showed the following result for planar graphs.
+
+% ------------------------------------------------------------------------------
+\begin{lemma}[\cite{Frederickson87}]
+  \label{lem:fred_graph_sep}
+  Every $n$-vertex planar graph of bounded degree has an $r$-partition
+  with $\OhOf{n / \sqrt{r}}$ boundary vertices.
+\end{lemma}
+% ------------------------------------------------------------------------------
+
+%%% Local Variables:
+%%% TeX-PDF-mode: t
+%%% TeX-master: "main"
+%%% End:

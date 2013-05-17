@@ -1,0 +1,48 @@
+% EDITING GUIDELINES
+%
+% * Limit lines to no more than 100 characters.  The default should be
+%   80 characters.  This leaves room for the addition of 20 new
+%   characters on the same line later on.
+%
+%   RATIONALE: Long lines are hard to read and cause trouble when
+%   viewing two versions of the file side by side (e.g., using vimdiff)
+%
+% * Start every sentence on a new line.
+%
+%   RATIONALE: This makes sentences so much easier to find using forward
+%   search in emacs or vim.
+%
+% * Do not justify paragraphs.  Particularly, when editing an existing
+%   version of the text, do not change line breaks apart from adding
+%   line breaks for lines that would otherwise be too long.
+%
+%   RATIONALE: This makes changes from previous versions so much easier
+%   to identify, particularly when using a VCS.  Adding a word and
+%   justifying the paragraph may change all the lines in the paragraph,
+%   making this look like a huge edit.  Without justification, the
+%   diff shows only the addition of the one word.
+
+\begin{abstract}\noindent
+  We present a technique for representing bounded-degree planar graphs
+  in a succinct fashion while permitting I/O-efficient traversal of
+  paths.
+  Using our representation, a graph with $N$ vertices, each
+  with an associated key of $\bitsPerKey = \OhOf{\lg N}$ bits,\footnote{In this
+    paper $\lg{N}$ denotes $\log_2{N}$.} can be stored in $N\bitsPerKey
+  + \OhOf{N} + \ohOf{N\bitsPerKey}$ bits and traversing a path of length $K$ 
+  takes $\OhOf{K
+  / \lg B}$ I/Os, where $B$ denotes the disk block size.
+  By applying our construction to the dual of a terrain represented as a
+  triangular irregular network, we can represent the terrain in the
+  above space bounds and support path traversals on the terrain using
+  $\OhOf{K / \lg B}$ I/Os, where $K$ is the number of triangles visited by
+  the path.
+  This is useful for answering a number of queries on the
+  terrain, such as reporting terrain profiles, trickle paths, and
+  connected components.
+\end{abstract}
+
+%%% Local Variables:
+%%% TeX-PDF-mode: t
+%%% TeX-master: "main"
+%%% End:
