@@ -74,7 +74,7 @@ vertex without reference to a specific region or subregion.
 	subregions each (delineated by dashed lines).
     Region boundary vertices are shown as large hollow disks while subregion 
 	boundary vertices interior to their regions are shown as large solid disks.
-    Vertices interior to their subregions are shown as small solid disks.}
+    Vertices interior to their subregions are shown as small solid disks}
   \label{fig:partitioned_graph}
 \end{figure}
 % ------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ definitions pertaining to $\alpha$-neighbourhoods).
   \caption[$\alpha$-neighbourhood of a boundary vertex]{The 
 	$\alpha$-neighbourhood $\nb[\alpha]{v}$ of a vertex $v$,
     for $\alpha = 16$.
-    Vertex $v$ is interior to $\nb[\alpha]{v}$ while vertex $w$ is terminal.}
+    Vertex $v$ is interior to $\nb[\alpha]{v}$ while vertex $w$ is terminal}
   \label{fig:alpha_neighbourhoods}
 \end{figure}
 % ------------------------------------------------------------------------------
@@ -281,7 +281,7 @@ For completeness, we prove all parts of the lemma here.
 		\begin{tabular}{ l | l}
 			Operator & Description \\ \hline
 			$\rankop[x]{S, i}$ & Returns the number of $x$'s in bit-vector $S$ up to
-				position $S[1..i]$, where $x \in \{0,1\}$.\\
+				position $S[i]$, where $x \in \{0,1\}$.\\
 			$\selop[x]{S, r}$ & Returns the $r$\textsuperscript{th} $x$ in bit-vector $S$
 				where $x \in \{0,1\}$.\\
 			$\regpos{i}$ & Returns the first element of region $\reg[i]$ in $\vvec$. \\
@@ -292,7 +292,7 @@ For completeness, we prove all parts of the lemma here.
 			$\bdcount{i}$ & Calculates in $\vvec$ the number of sub-region boundary vertices
 				in $\reg[i]$. \\ \hline
 		\end{tabular}
-	\caption{Summary of bit-vector operations used in this section. }
+	\caption{Summary of bit-vector operations used in this section }
 	\label{tab:succ_operators}
 \end{table*}
 
@@ -317,7 +317,7 @@ For completeness, we prove all parts of the lemma here.
   \item $\regpos{i}$ returns the index of the first element of $\vvec[i]$
     in $\vvec$ and is implemented as $\regpos{i} := \selop[1]{\fstofreg,i}$.
   \item $\subregpos{i,j}$ returns the index of the first element of $\vvec[i,j]$
-    in $\vvec$ and is implemented as
+    in $\vvec$ and is implemented as\\
     $\subregpos{i,j} := \selop[1]{\fstofsubreg,\rankop[1]{\fstofsubreg,\regpos{i}-1}+j}$.
   \item $\possubreg{i,p}$ returns the index $j$ of the subregion $\subreg[i,j]$
     of $\reg[i]$ such that $\vvec[][p]$ is an element of  $\vvec[i,j]$,
@@ -612,7 +612,7 @@ This representation of $\ds$ is illustrated in Figure~\ref{fig:block-packing}.
   \caption[Packing graph blocks in memory]{Arrays $\ds$, $\fst$, and $\diff$ 
 	and the packing of $\ds$ into blocks.
     The dark portion at the beginning of each block stores the block offset.
-    The black portion of the last block is unused.}
+    The black portion of the last block is unused}
   \label{fig:block-packing}
 \end{figure}
 % ------------------------------------------------------------------------------
@@ -1062,7 +1062,7 @@ In order to report the graph labels of vertices in the
   \label{thm:planar_graph}
   Given a planar graph $G$ of bounded degree, where each vertex stores
   a key of $\bitsPerKey$ bits, there is a data structure that represents $G$ in
-  $N\bitsPerKey +O(N) + o(N\bitsPerKey)$ bits that permits traversal of a path of length
+  $N\bitsPerKey +O(N) + o(N\bitsPerKey)$ bits and permits traversal of a path of length
   $K$ with $O \left( \frac{K}{ \lg{B} } \right)$ I/O operations.
 \end{theorem}
 

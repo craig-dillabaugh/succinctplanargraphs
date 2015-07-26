@@ -152,7 +152,7 @@ $2M + (5 + 1/\epsilon)N + \ohOf{M + N}$ bits, for any $\epsilon > 0$
 (with $\epsilon = \OhOf{1}$), and supports constant-time adjacency 
 and degree queries.
 If the graph is simple, this bound becomes
-$\frac{5}{3}M + (5 + 1/\epsilon)N + ohOf{N}$. 
+$\frac{5}{3}M + (5 + 1/\epsilon)N + \ohOf{N}$. 
 For triangulated planar graphs, they reduced the space
 bound to $2M + 2N + \ohOf{N}$ bits.
 The space bound for general planar graphs was reduced by Chiang
@@ -269,7 +269,7 @@ In this paper, we present the following results:
   of edges on the component's boundary.
   In order to achieve this query bound, the query procedure uses
   $\BigOh{h \cdot (\bitsPerKey + \lg h)}$ extra space.
-  Without using any extra space, the same query can be answered using
+  The same query can be answered using no additional space in 
   $\BigOh{K / \lg B + h' \log_B h'}$ I/Os, where $h'$ is the number of
   triangles that are incident on the boundary of the component.
 \end{enumerate}

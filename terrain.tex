@@ -85,8 +85,8 @@ circles and edges as dashed lines.
 Edges in the triangulation $\triang$ are shown as solid lines. 
 (b) The augmented graph $\augdual{\triang}$ is shown;
 hallow points are triangle vertices, solid points are point 
-vertices, black dashed lines are triangle edges, and solid green lines are point 
-edges. }\label{fig:aug_tri}
+vertices, black dashed lines are triangle edges, and solid lines are point 
+edges }\label{fig:aug_tri}
 \end{figure}
 % ---------------------------------------------------------------------------------%
 
@@ -141,7 +141,7 @@ $N\bitsPerPoint + O(N)$ bits, such that given the label of a triangle, the adjac
 \end{lemma}
 
 \begin{proof}
-Since the augmented planar graph is simple we can encode it with 
+Since the augmented planar graph is simple, we can encode it with 
 $2|\augdual{E}| + 2|\augdual{V}| + o(|\augdual{V}|)$ bits 
 using the encoding of~\cite{DBLP:journals/siamcomp/ChiangLL05}. 
 By Lemma \ref{lem:points_for_dual} if $|\dual{T}| = N$ then 

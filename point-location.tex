@@ -110,13 +110,11 @@ segment from the separator.
     Inserting just the edges of boundary triangles into $\N$ is 
     sufficient to handle query $p$ but query $q$ fails.
     In (b), the complete search structure is shown.
-    The segments added to $\N$ (drawn as black and heavy) 
+    The segments added to $\N$ (heavy lines) 
     include all boundary triangle edges and the segments generated
     by partitioning $S_{\infty}$.
     Region labels for a small subset of $\N$ are indicated just below
-    their respective segments.
-    Note that any query falling within $\triang$, and even some outside,
-    will return a region to search.
+    their respective segments
   }
   \label{fig:pl_structure}
 \end{figure}
@@ -178,7 +176,7 @@ all $\N_i$.
   \includegraphics[scale=1.0]{Fig6}
   \caption[Bound on size of $\mathcal{S}_{\infty}$]{
   Illustration of proof that region boundary triangle must
-  exists at a break in $\mathcal{S}_{\infty}$.
+  exists at a break in $S_{\infty}$
   }
   \label{fig:pl_s_infty}
 \end{figure}
@@ -244,7 +242,7 @@ queries on data structures that answer the query in $\OhOf{\log_B N}$ I/Os.
 Given a terrain $\triang$, where each point coordinate may be stored in $\bitsPerPoint$ 
 bits, there is a data structure that represents $\triang$ in 
 $N\bitsPerPoint + O(N) +o(N\bitsPerPoint)$ bits that permits traversal of a path crossing 
-$K$ faces in $\triang$ with $O \left( \frac{K}{ \lg{B} } \right)$ I/Os, and which 
+$K$ faces in $\triang$ with $O \left( \frac{K}{ \lg{B} } \right)$ I/Os, and 
 supports point location queries with $\OhOf{\log_B{N}}$ I/Os.
 \end{theorem} 
 

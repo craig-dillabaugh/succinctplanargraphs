@@ -51,7 +51,8 @@
 
 %---[ A macro for typesetting "et al." in references ]--------------------------
 
-\def\etal{\emph{et~al.}}
+%\def\etal{\emph{et~al.}}
+\newcommand{\etal}{\emph{et~al.}}
 
 %---[ Parenthesization ]----------------------------------------------
 
@@ -188,25 +189,18 @@
 \newcommand{\subregbdvec}{\bdvec[S]}
 \newcommand{\reglt}{\prec_R}
 \newcommand{\subreglt}{\prec_S}
-\newcommand{\succblksize}{\textbf{\textsc{B}}} %CD: I am using this instead for A'.
-%\newcommand{\succblksize}{\text{\bf{\small{B}}}} %CD: I am using this for now, since B' makes
-% some of our notations awkward.
+\newcommand{\succblksize}{\textbf{\textsc{B}}}
 
 \newcommand{\regptable}{\mathcal{P}_R}
 \newcommand{\subregptable}{\mathcal{P}_{SR}}
 
 
-% The following are terrible.  Clean up later.
+
 \newcommand{\wsize}{w}
-\newcommand{\augdualsym}{+}  %This is no longer used.
-%\newcommand{\myAugTriDual}{\mathcal{T}^{\augdualsym}}
-% now \augdual{\triang}
-\newcommand{\myTriDualTree}{\mathcal{T}^*_T}
-\newcommand{\myCComp}{\dual{\triang}_C} %Changing to
-\newcommand{\concomp}{{\triang}_C} %Was formerly \myCComp
+\newcommand{\augdualsym}{+}
+\newcommand{\concomp}{{\triang}_C}
 \newcommand{\bitsPerKey}{q}
 \newcommand{\bitsPerPoint}{\phi}
-
 \newcommand{\funccase}[1]{\texttt{#1}}
 
 %---[ Caligraphic letters to be replaced by mnemonics later ]-------------------
@@ -228,26 +222,6 @@
 %---[ Some beautification ]-----------------------------------------------------
 
 \let\epsilon\varepsilon
-
-%---[ Macro for putting comments in the margin ]--------------------------------
-
-\def\comment#1{}
-\def\withcomments{%
-  \addtolength{\oddsidemargin}{-0.5in}%
-  \addtolength{\evensidemargin}{-0.5in}%
-  \setlength{\marginparwidth}{1in}
-  \newcounter{mycommentcounter}%
-  \def\comment##1{\refstepcounter{mycommentcounter}%
-    \ifhmode
-      \unskip
-      {\dimen1=\baselineskip
-        \divide\dimen1 by 2%
-        \raise\dimen1\llap{\tiny -\themycommentcounter-}}%
-    \fi
-    \marginpar{\renewcommand{\baselinestretch}{0.8}%
-      \footnotesize [\themycommentcounter]: \raggedright ##1}}%
-  \date{\framebox{Draft of \today}}}
-\withcomments
 
 %%% Local Variables:
 %%% TeX-PDF-mode: t

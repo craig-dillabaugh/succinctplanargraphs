@@ -39,34 +39,221 @@ grestore
 
 \RequirePackage{fix-cm}
 %
-%\documentclass{svjour3}                     % onecolumn (standard format)
-%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
 \documentclass[smallextended]{svjour3}       % onecolumn (second format)
-%\documentclass[twocolumn]{svjour3}          % twocolumn
+%\documentclass{article}
 %
 \smartqed  % flush right qed marks, e.g. at end of proof
-%
-\input{sv_preamble}
-\usepackage{graphicx}
+
+
+
+
 %
 % \usepackage{mathptmx}      % use Times fonts if available on your TeX system
 %
+
+
 % insert here the call for the packages your document requires
-%\usepackage{latexsym}
-% etc.
+%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+%\usepackage{amsthm}
+\usepackage{authblk}
+\usepackage{caption}
+\usepackage{charter}
+\usepackage[noadjust]{cite}
+\usepackage{enumitem}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{bold-extra}
+\usepackage[charter]{mathdesign}
+\usepackage{subcaption}
+
 %
 % please place your own definitions here and don't use \def but
 % \newcommand{}{}
+%%% MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%---[ A macro for typesetting "et al." in references ]--------------------------
+\newcommand{\etal}{\emph{et~al.}}
+
+%---[ Parenthesization ]----------------------------------------------
+
+\newcommand{\newparentheses}[3]{%
+  \expandafter\newcommand\csname #1\endcsname[1]{#2##1#3}%
+  \expandafter\newcommand\csname #1L\endcsname[1]{\bigl#2##1\bigr#3}%
+  \expandafter\newcommand\csname #1XL\endcsname[1]{\Bigl#2##1\Bigr#3}%
+  \expandafter\newcommand\csname #1V\endcsname[1]{\left#2##1\right#3}}
+
+\newparentheses{parens}{(}{)}
+\newparentheses{braces}{\{}{\}}
+\newparentheses{brackets}{[}{]}
+\newparentheses{floor}{\lfloor}{\rfloor}
+\newparentheses{ceil}{\lceil}{\rceil}
+\newparentheses{abs}{|}{|}
+\newparentheses{set}{\{}{\}}
+\newparentheses{size}{|}{|}
+\newparentheses{seq}{\langle}{\rangle}
+
+%---[ Attributes ]----------------------------------------------------
+
+\makeatletter
+\newcommand{\onenewattribute}[4]{%
+  \@ifundefined{#2}{\let\@@def\newcommand}{\let\@@def\renewcommand}%
+  \expandafter\@@def\csname #2\endcsname[1][]{%
+    \def\first@arg{##1}\csname @#2\endcsname}%
+  \@ifundefined{@#2}{\let\@@def\newcommand}{\let\@@def\renewcommand}%
+  \expandafter\@@def\csname @#2\endcsname[2][]{%
+    \ifthenelse{\equal{#1}{sub}}%
+    {\csname @@#2\endcsname{##1}{\first@arg}{##2}}%
+    {\csname @@#2\endcsname{\first@arg}{##1}{##2}}}
+  \@ifundefined{@@#2}{\let\@@def\newcommand}{\let\@@def\renewcommand}%
+  \expandafter\@@def\csname @@#2\endcsname[3]{%
+    \ifthenelse{\equal{##1}{}}%
+    {\ifthenelse{\equal{##2}{}}%
+      {#3\csname #4\endcsname{##3}}%
+      {#3_{##2}\csname #4\endcsname{##3}}}%
+    {\ifthenelse{\equal{##2}{}}%
+      {#3^{##1}\csname #4\endcsname{##3}}%
+      {#3_{##2}^{##1}\csname #4\endcsname{##3}}}}}
+\newcommand{\newattribute}[3][sub]{%
+  \onenewattribute{#1}{#2}{#3}{parens}%
+  \onenewattribute{#1}{#2L}{#3}{parensL}%
+  \onenewattribute{#1}{#2XL}{#3}{parensXL}%
+  \onenewattribute{#1}{#2V}{#3}{parensV}}
+
+\newcommand{\newproperty}[2]{%
+  \@ifundefined{#1}{\let\@@def\newcommand}{\let\@@def\renewcommand}%
+  \expandafter\@@def\csname #1\endcsname[1][]{%
+    {\ifthenelse{\equal{##1}{}}%
+      {#2}%
+      {#2_{##1}}}}}
+
+\makeatother
+
+%---[ Asymptotic notation ]-------------------------------------------
+
+\newattribute{OhOf}{\mathrm{O}}
+\newattribute{ThetaOf}{\Theta}
+\newattribute{OmegaOf}{\Omega}
+\newattribute{ohOf}{\mathrm{o}}
+\newattribute{omegaOf}{\omega}
+
+\newcommand{\BigOh}[1]{O\!\left(#1\right)}
+\newcommand{\LittleOh}[1]{o\!\left(#1\right)}
+
+%---[ Macros for a bunch of operations we perform ]-----------------------------
+
+\newcommand{\rankopsym}{\texttt{rank}}
+\newattribute{rankop}{\rankopsym}
+\newcommand{\selopsym}{\texttt{select}}
+\newattribute{selop}{\selopsym}
+\newcommand{\stepop}{\texttt{step}}
+\newcommand{\regpossym}{\texttt{rpos}}
+\newattribute{regpos}{\regpossym}
+\newcommand{\subregpossym}{\texttt{spos}}
+\newattribute{subregpos}{\subregpossym}
+\newcommand{\possubregsym}{\texttt{sreg}}
+\newattribute{possubreg}{\possubregsym}
+\newcommand{\bdcountsym}{\texttt{sbdcount}}
+\newattribute{bdcount}{\bdcountsym}
+
+%---[ Macros for some concepts ]------------------------------------------------
+
+\newcommand{\path}{K}
+\newcommand{\pointset}{P}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\plane}{\reals^2}
+\newcommand{\triang}{\mathcal{T}}
+\newcommand{\dual}[1]{#1^*}
+\newcommand{\augdual}[1]{#1^+}
+
+\newattribute{deg}{d}
+\newattribute{nb}{N}
+
+\newcommand{\regsz}{r_1}
+\newcommand{\subregsz}{r_2}
+\newcommand{\regub}{s_R}
+\newcommand{\subregub}{s_S}
+
+\newattribute{glbl}{\ell_G}
+\newattribute{reglbl}{\ell}
+\newattribute{subreglbl}{\ell}
+
+\newproperty{reg}{R}
+\newproperty{subreg}{R}
+\newproperty{perm}{\pi}
+\newproperty{graphrep}{\mathcal{G}}
+\newproperty{numv}{n}
+\newproperty{dnumv}{n'}
+\newproperty{bdvec}{\mathcal{B}}
+\newproperty{keyvec}{\mathcal{K}}
+\newproperty{lblvec}{\mathcal{L}}
+\newproperty{fstofreg}{\mathcal{F}_R}
+\newproperty{fstofsubreg}{\mathcal{F}_S}
+\newproperty{defvec}{\mathcal{D}}
+\newproperty{vvec}{\mathcal{V}}
+\newproperty{regvec}{\mathcal{R}}
+\newproperty{subregvec}{\mathcal{R}_{\ell} } %was \mathcal{S} S, but clashes with \ds
+\newproperty{idxvec}{\mathcal{I}}
+
+\newproperty{term}{\mathcal{T}}
+\newproperty{pos}{p}
+\newproperty{genvec}{\mathcal{A}}
+
+\newcommand{\ds}{\mathcal{S}}
+\newcommand{\fst}{\mathcal{F}}
+\newcommand{\diff}{\mathcal{D}}
+\newcommand{\regnbvec}{\mathcal{N}_R}
+\newcommand{\subregnbvec}{\mathcal{N}_S}
+\newcommand{\regminvec}{\mathcal{M}_R}
+\newcommand{\subregminvec}{\mathcal{M}_S}
+\newcommand{\regbdvec}{\bdvec[R]}
+\newcommand{\subregbdvec}{\bdvec[S]}
+\newcommand{\reglt}{\prec_R}
+\newcommand{\subreglt}{\prec_S}
+\newcommand{\succblksize}{\textbf{\textsc{B}}}
+
+\newcommand{\regptable}{\mathcal{P}_R}
+\newcommand{\subregptable}{\mathcal{P}_{SR}}
+
+
+
+\newcommand{\wsize}{w}
+\newcommand{\augdualsym}{+}
+\newcommand{\concomp}{{\triang}_C}
+\newcommand{\bitsPerKey}{q}
+\newcommand{\bitsPerPoint}{\phi}
+\newcommand{\funccase}[1]{\texttt{#1}}
+
+%---[ Caligraphic letters to be replaced by mnemonics later ]-------------------
+
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\K}{\mathcal{K}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\N}{\mathcal{N}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\T}{\mathcal{T}}
+
+%---[ Two dots for typesetting ranges ]-----------------------------------------
+
+\newcommand{\tdots}{\mathinner{\ldotp\ldotp}}
+
+%---[ Some beautification ]-----------------------------------------------------
+
+\let\epsilon\varepsilon
+
 %
 % Insert the name of "your journal" with
-% \journalname{myjournal}
+\journalname{Algorithmica}
 %
 \begin{document}
 
-\title{I/O-Efficient Path Traversal in Succinct Planar Graphs\thanks{This work was supported by NSERC of Canada.
-    The work was done while the second author was at the
-    School of Computer Science, Carleton University, Canada..}
-}
+\title{I/O-Efficient Path Traversal in Succinct Planar Graphs}
 %\subtitle{Do you have a subtitle?\\ If so, write it here}
 
 %\titlerunning{Short form of title}        % if too long for running head
@@ -82,7 +269,7 @@ grestore
 \institute{Craig Dillabaugh \at
               School of Computer Science, Carleton University \\
               Tel.: +819-827-8215\\
-              Fax: +123-45-678910\\
+              Fax:  +613-520-4334\\
               \email{cdillaba@cg.scs.carleton.ca}           %  \\
 %             \emph{Present address:} of F. Author  %  if needed
            \and
@@ -123,10 +310,13 @@ planar graphs \and succinct data structures }
 \input{applications}
 
 
-%\begin{acknowledgements}
-%If you'd like to thank anyone, place your comments here
-%and remove the percent signs.
-%\end{acknowledgements}
+\begin{acknowledgements}
+The author's wish to thank the School of Computer Science, Carleton University 
+and the Natural Sciences and Engineering Research Council of Canada for financial 
+assistance.
+The work was done while the second author was at the
+School of Computer Science, Carleton University, Canada.
+\end{acknowledgements}
 
 % BibTeX users please use one of
 %\bibliographystyle{spbasic}      % basic style, author-year citations

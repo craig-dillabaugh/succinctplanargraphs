@@ -217,24 +217,21 @@
 		  \includegraphics[width=0.6\textwidth]{Fig7}
 	  \caption[Dual graph with non-entry edges removed forms a tree]{ 
 	    A triangulation is shown with its dual graph. 
-	    The blue arrows indicate the entry edges selected for each triangle when
+	    The arrows indicate the entry edges selected for each triangle when
 	    triangle $t_s$ is selected as the root ($\dual{t}_s$ is circled). 
 	    The arrows are directed from child to parent.
 	    Removing the non-entry edges results in a tree in the dual, rooted at 
 	    $\dual{t}_s$.
 	    So long as a connected component is convex (e.g., the shaded area) this 
 	    tree property holds for the subgraph consisting of only nodes in the
-	    component.} \label{fig:imp_tree_entry}
+	    component} \label{fig:imp_tree_entry}
   \end{figure}
 	  
   \begin{figure}[th]
 	  \centering 
 	  \includegraphics[width=0.6\textwidth]{Fig8}
-	  \caption[Tree rooted at $t_s$]{ The tree rooted at $t_s$. 
-	    The red nodes indicate nodes of the subtree contained within the 
-	    connected component; this subtree is still connected even when all 
-	    (black) nodes - which are not part of the component - 
-	    are removed.} \label{fig:implicit_tree}
+	  \caption[Tree rooted at $t_s$]{ The tree rooted at $t_s$; hallow
+	  nodes indicate red nodes while solid nodes indicate black nodes} \label{fig:implicit_tree}
   \end{figure}
 
   This result leads to a simple traversal algorithm for connected 
@@ -346,18 +343,18 @@
 	  \caption[Boundary edge definitions]{A triangulation and the implicit tree 
 	  formed by the entry edges selected for the circled vertex $\dual{t}_s$. 
 	  In this case, the connected component of $t_s$ is non-convex so that the tree 
-	  formed by only red nodes is disconnected. 
+	  formed by only red (hallow) nodes is disconnected. 
 	  The boundary edges of the triangulation are indicated by the heavy dashed 
-	  blue line. 
+	  line. 
 	  Using our notation for boundary edges, A is a \emph{wall} edge, B is an 
 	  \emph{access} edge where the tree enters the component, and C is an 
-	  \emph{exit} edge where the tree leaves the component. }
+	  \emph{exit} edge where the tree leaves the component}
 	  \label{fig:imp_tree_non-convex}
   \end{figure}
 
   We report the triangles in $\concomp$ using the algorithm 
   $\funccase{DepthFirstTraversal}$ listed in Fig. \ref{fig:traverse_graph_algorithm}.
-  $\funccase{DepthFirstTraversal}$ performs a standard depth-first traversal in 
+  The algorithm performs a standard depth-first traversal in 
   $\dual{\triang}_T$, with one important modification. 
   If a branch of the algorithm's execution terminates at an access boundary 
   edge, then the function $\funccase{ScanBoundary}$ (Fig. \ref{fig:scanhandrail_alg}) 
@@ -374,8 +371,6 @@
   of $\funccase{ScanBoundary}$ is halted. 
   Likewise, when $\funccase{DepthFirstTraversal}$ encounters an access edge already in 
   $\mathcal{V}$, it does not invoke $\funccase{ScanBoundary}$. 
-  Figure \ref{fig:cmp_with_holes} demonstrates the operation of
-  $\funccase{DepthFirstSearch}$ and $\funccase{ScanBoundary}$.
 
   \begin{figure}[h]
   \protect \framebox[0.95\linewidth]
@@ -401,7 +396,7 @@
   16. \textbf{until}($t$ has no more unvisited children \textbf{and} $t=t_s$) \\
   \end{minipage}
   }
-  \caption{Algorithm $\funccase{DepthFirstTraversal}$. }
+  \caption{Algorithm $\funccase{DepthFirstTraversal}$ }
   \label{fig:traverse_graph_algorithm}
   \end{figure}
 
@@ -427,49 +422,14 @@
   14. \textbf{until}(e' == e) \\
   \end{minipage}
   }
-  \caption{Algorithm $\funccase{ScanBoundary}$. }
+  \caption{Algorithm $\funccase{ScanBoundary}$ }
   \label{fig:scanhandrail_alg}
-  \end{figure}
-
-  \begin{figure}[th]
-	  \centering
-		  \includegraphics[width=0.8\textwidth]{Fig10}
-	  \caption[Traversal example on non-convex region with holes]{On the left is shown a 
-	  triangulation $\triang$ and connected component $\triang_C$ (shaded) 
-	  with a non-convex boundary and holes. 
-	  The original tree $G_T$ is shown on the right, with vertices labeled by preorder 
-	  number for the entire triangulation $\triang$. 
-	  Hallow vertices correspond to vertices removed from $G_T$ by holes and/or 
-	  concavities in the boundary of $\triang_C$. 
-	  The parent-child relationships, as well as the vertex labels are also shown on $\triang$. 
-	  In $\triang$ boundary edges are thick lines, with entry edges being dashed 
-	  and exit edges dotted. 
-	  The original call to $\funccase{DepthFirstTraversal}$ first encounters the 
-	  entry edge 
-	  (8,7), from which $\funccase{ScanBoundary}$ will visit exit edges (9,8), 
-	  (12,11), and 
-	  (14,13), in that order, before terminating back at $(8,7)$. 
-	  This initial call to $\funccase{ScanBoundary}$ results in subtrees rooted
-	  at vertices 
-	  $9$, $12$, and $14$ being reported. 
-	  $\funccase{ScanBoundary}$ is not invoked from entry edge (10,2), as this 
-	  edge is added 
-	  to $\mathcal{V}$ during the invocation of $\funccase{ScanBoundary}$ from 
-	  $(8,7)$. 
-	  $\funccase{ScanBoundary}$ is, however, called from $(17,1)$, which results 
-	  in entry 
-	  edges $(26,18)$, $(24,19)$, and $(20,19)$ being visited and the subtrees 
-	  rooted at vertices $26$, $24$, and $20$ being reported.
-	  The dashed arrows represent cases where $\funccase{ScanBoundary}$ jumps 
-	  between
-	  \emph{access} edges and \emph{exit} edges.}
-	  \label{fig:cmp_with_holes}
   \end{figure}
 
   \begin{lemma}\label{lem:cc_holes_alg_correctness}
   Given a triangle $t_s \in \concomp$, the algorithms 
   $\funccase{DepthFirstTraversal}$ and $\funccase{ScanBoundary}$ report all
-  triangles in $\concomp$. 
+  triangles in $\concomp$.
   \end{lemma}
 
   \begin{proof}
@@ -514,11 +474,11 @@
 
   \begin{figure}[th]
 	  \centering
-		  \includegraphics[width=0.6\textwidth]{Fig11}
+		  \includegraphics[width=0.6\textwidth]{Fig12}
 	  \caption[General component subpaths]{The path through the tree 
 	  $\dual{\triang}_T$ connecting nodes $s$ and $t$, which are both
 	  part of the connected component $\concomp$. 
-	  The path leaves $\concomp$ at $(w',w)$ and re-enters at $(u,u')$.}
+	  The path leaves $\concomp$ at $(w',w)$ and re-enters at $(u,u')$}
 	  \label{fig:component_subpaths}
   \end{figure}
   
@@ -685,7 +645,7 @@
 
   \begin{figure}[th]
 	  \centering
-		  \includegraphics[width=0.8\textwidth]{Fig12}
+		  \includegraphics[width=0.8\textwidth]{Fig13}
 	  \caption[Psuedo-edges in region boundaries]{The figure on the left 
     shows a portion of a component (grey) with a hole (white). 
 	  The dashed box indicates the detailed area shown in the figure on the
@@ -695,7 +655,7 @@
 	  At the point marked $a$, a single pseudo-edge is added as there is 
 	  only one non-edge adjacent triangle adjacent to this point. 
 	  The point $b$ has two non-edge adjacent triangles, therefore two pseudo-edges 
-	  $b$ and $b'$ are added to the hole boundary. }
+	  $b$ and $b'$ are added to the hole boundary }
 	  \label{fig:pseudo-face}
   \end{figure}
 
