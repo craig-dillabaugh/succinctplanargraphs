@@ -341,7 +341,7 @@ a given size or in a disk block.
 The former is important because an increasing number of
 large-scale applications find themselves limited by the amount of data
 that fits on a disk.
-The latter helps to reduce the I/O bottleneck further, as more data
+The latter helps to reduce the I/O bottleneck further, as more useful data
 can be swapped between memory and disk in a single I/O operation.
 
 In this paper, we develop a succinct EM data structure for path
@@ -528,7 +528,8 @@ In this paper, we present the following results:
 
 \begin{enumerate}
 \item In Section \ref{sec:graph_rep}, we present a data structure that
-  uses $Nq + \OhOf{N} + \ohOf{Nq}$ bits to represent a planar graph with $N$
+  uses $Nq + \OhOf{N} + \ohOf{Nq}$ bits to represent a bounded degree 
+  planar graph with $N$
   vertices, each with a label of size $q$, and which allows the traversal of
   any path of length $K$ using $O(K / \lg B)$ I/Os.
   This path traversal cost matches that achieved by the data structure of
@@ -744,7 +745,7 @@ we discuss how to traverse paths I/O efficiently using this
 representation.
 In Section \ref{sec:alt_block_scheme}, we describe an 
 alternative scheme
-for blocking planar graphs that can improve I/O efficiency in 
+for blocking bounded degree planar graphs that can improve I/O efficiency in 
 some instances.
 
 % ------------------------------------------------------------------------------
@@ -1189,7 +1190,9 @@ The representation of $\subreg[i,j]$ is the concatenation of $\numv[i,j]$,
 $\graphrep[i,j]$, $\bdvec[i,j]$, and $\keyvec[i,j]$.
 
 Let $\succblksize$ be the maximum integer such that a subregion with $\succblksize$
-vertices can be encoded in this manner. 
+vertices can be encoded in this manner
+(The exact value of $\succblksize$, and its relation to $B$, is
+provided in Equation~\ref{eqn:block_size} in the proof of Lemma~\ref{lem:main_space}).
 We choose the parameters of our two-level partition as $\regsz := \succblksize \log^3
 N$ and $\subregsz := \succblksize$.
 This ensures that every subregion fits in a disk block.
@@ -1230,7 +1233,7 @@ This representation of $\ds$ is illustrated in Figure~\ref{fig:block-packing}.
 
 In order to facilitate the efficient lookup of subregions in $\ds$, we augment
 it with two bit vectors $\fst$ and $\diff$, each represented to support
-constant-time $\rankop$ and $\selop$ queries (see Lemma~\ref{lem:rank_select}).
+constant-time $\rankopsym$ and $\selopsym$ queries (see Lemma~\ref{lem:rank_select}).
 If $Q$ is the total number of subregions in~$G$, each of the two vectors has
 length $Q$.
 Their entries are defined as follows:
@@ -1260,7 +1263,7 @@ following structures:
   This encoding involves a permutation $\perm[x]$ of the vertices in
   $\nb[\alpha]{x}$.
 \item A bit vector $\term[x]$ of length $\size{\nb[\alpha]{x}}$ for which
-  $\term[x][k] = 1$ if and only if the $k$th vertex in $\perm{x}$ is a terminal
+  $\term[x][k] = 1$ if and only if the $k$th vertex in $\perm[x]$ is a terminal
   vertex of $\nb[\alpha]{x}$.
 \item A $(\lg \alpha)$-bit integer $\pos[x]$ that records the position of
   $x$ in $\perm[x]$.
@@ -1316,8 +1319,8 @@ labels of their defining boundary vertices.
 
 In order to be able to locate the $\alpha$-neighbourhoods of boundary vertices
 in $\regnbvec$ and $\subregnbvec$, we store two bit vectors,
-$\regbdvec$ and $\subregbdvec$, of length $N$ that support $\rankop$
-and $\selop$ queries;
+$\regbdvec$ and $\subregbdvec$, of length $N$ that support $\rankopsym$
+and $\selopsym$ queries;
 $\regbdvec[i] = 1$ if and only if the vertex with graph label $i$ is a region
 boundary vertex; $\subregbdvec[i] = 1$ if and only if the vertex is a subregion
 boundary vertex interior to its region.
@@ -1390,7 +1393,7 @@ representation, we prove a bound on its size.
   $\fst$ and $\diff$.
   Each vector stores one bit per subregion.
   Thus, their total size is $\OhOf{N / \succblksize} = \ohOf{N}$, and they can be stored
-  in $\ohOf{N}$ space to support $\rankop$ and $\selop$ operations.
+  in $\ohOf{N}$ space to support $\rankopsym$ and $\selopsym$ operations.
   In summary, we use $N \bitsPerKey + \OhOf{N} + \ohOf{N \bitsPerKey}$ bits to represent all
   subregions.
 
@@ -1576,7 +1579,7 @@ In order to report the graph labels of vertices in the
   subregions we must skip from the start of $b$, and by reading only
   the subregion offsets we can jump to the location in $b$ where
   $R_{i,j}$ starts. 
-  The $\rankop$ and $\selop$ operations require
+  The $\rankopsym$ and $\selopsym$ operations require
   $O(1)$ I/Os, and we read portions of at most two blocks $b$ and
   $b+1$ to read a subregion, therefore we can load a subregion with $O(1)$
   I/Os.
@@ -1635,7 +1638,7 @@ In order to report the graph labels of vertices in the
   $\alpha$-neighbourhoods only extend to the boundary vertices of the
   region, such that the path from $v$ to a terminal node may be less
   than $\log_d{\succblksize^{1/3}}$. 
-  In the later case the terminal vertex
+  In the latter case the terminal vertex
   corresponds to a region boundary vertex.
 
   Without loss of generality, assume that traversal starts with an
@@ -1691,10 +1694,12 @@ the actual graph representation.
 Agrawal~\etal~\cite{DBLP:conf/soda/AgarwalAMVV98} do not attempt to
 analyze their space complexity in bits but, assuming they use
 $\lg{N}$ bit pointers to represent the graph structure, their
-structure requires $\OhOf{N \lg{N}}$ bits for any size $\bitsPerKey$. If $\bitsPerKey$ is
+structure requires $\OhOf{N \lg{N}}$ bits for any size $\bitsPerKey$. 
+If $\bitsPerKey$ is
 a small constant, our space complexity becomes $\OhOf{N} +
 \ohOf{N}$, which represents a savings of $\lg{N}$ bits compared to
-the $\OhOf{N \lg{N}}$ space of of Agarwal~\etal. In the worst case
+the $\OhOf{N \lg{N}}$ space of of Agarwal~\etal. 
+In the worst case
 when $\bitsPerKey = \ThetaOf{\lg{N}}$, our space complexity is 
 $\ThetaOf{N \lg{N}}$, which is asymptotically equivalent to that of
 Agarwal~\etal. 
@@ -1719,7 +1724,7 @@ strategy recursively identifies a separator on the nodes of the graph
 $G$, until $G$ is divided into regions of size $r$ which can fit on a
 single block (in this context, region is used generically to refer to
 the size of partitions in the graph as in Lemma
-\ref{lem:fred_graph_sep}). However, rather than store
+\ref{lem:fred_graph_sep}). However, rather than storing
 $\alpha$-nieghbourhoods of size $\sqrt{r}$ for each boundary vertex,
 larger $\alpha$-neighbourhoods are stored for a subset of the boundary
 vertices. 
@@ -1736,7 +1741,7 @@ the separator result of Miller~\cite{miller_1986} is
 stated in Lemma~\ref{lem:miller_cycle_sep}.
 
 \begin{lemma}[Miller~\cite{miller_1986}]\label{lem:miller_cycle_sep}
-If $G$ is an embedded planar graph consisting of $N$ vertices, then
+If $G$ is an embedded 2-connected planar graph consisting of $N$ vertices, then
 there exists a balanced separator which is a single vertex, or a simple cycle
 of size at most $2 \sqrt{2 \left\lfloor \frac{c}{2} \right\rfloor N}$,
 where $c$ is the maximum face size.
@@ -1817,7 +1822,7 @@ done in Lemma~\ref{lem:cycle_sep_size}.
   we can characterize the size of the
   resulting subsets by $|N_1| = \epsilon N + \OhOf{\sqrt{N}}$ and
   $|N_2| = (1-\epsilon)N + \OhOf{\sqrt{N}}$. Following the proof of
-  Lemma 1 in \cite{Frederickson87}, the total separator size require to
+  Lemma 1 in \cite{Frederickson87}, the total separator size required to
   split $G$ into regions of size at most $N$ then becomes
   $\BigOh{\frac{N}{\sqrt{r}}}$.
 \end{proof}
@@ -1876,7 +1881,8 @@ The first element in the corresponding tuple is a pointer to the
 $\regnbvec$, and the second element of the tuple indicates from where
 to resume traversal.
 Using $\regptable$ incurs at most a single additional I/O.
-Thus, lookup for region boundary vertices is $\OhOf{1}$.
+Thus, lookup for region boundary vertices takes $\OhOf{1}$ I/O 
+operations.
 
 For subregion boundary vertices, we apply the same indirection
 to locate the proper $\alpha$-neighbourhood.
@@ -2166,7 +2172,7 @@ The array $\mathcal{P}$ stores at most $N+2$ points.
 If each point requires $\bitsPerPoint$ bits then $\mathcal{P}$ 
 requires $N\bitsPerPoint$ bits. 
 Finally, by Lemma \ref{lem:rank_select}(b) we can store the bit array 
-$\pi$ such that $\rankop$ and $\selop$ can be performed in constant time 
+$\pi$ such that $\rankopsym$ and $\selopsym$ can be performed in constant time 
 with $N + o(N)$ bits.
 \end{proof}
 
@@ -2731,7 +2737,7 @@ can be answered in $\OhOf{\log_B{N}}$ I/Os.
   \item Let $t$ be the triangle for which we wish to identify an entry edge.
   Calculate the distance from $s$ to the closures of all edges of $t$.
   Let $s'$ be the point on $t$ that minimizes $\texttt{dist}(s,s')$. 
-  \item If $s'$ is interior to an edge of $t$; select this edge as the
+  \item If $s'$ is interior to an edge of $t$, select this edge as the
   entry edge, otherwise, $s'$ must be a vertex of $t$. 
   In this case, let $e$ and $e'$ be the edges adjacent to $s'$. 
   If $e$ is \emph{exposed} to $s$, such that the line $\vec{\ell}$ induced by 
@@ -3138,9 +3144,8 @@ can be answered in $\OhOf{\log_B{N}}$ I/Os.
   component of the subdivision in $\OhOf{h \log{h}}$ time, where the 
   $h$ is the number of vertices in the component.  
 
-  In this paper all faces are triangles, thus to find the entry edge
-  at the triangle level is a constant-time operation using any
-  selection technique.
+  In the case presented in this section, we are dealing with 
+  triangular faces, so the entry edge can be found in constant time.
   Where the 'search both ways' technique proves useful in our setting 
   is in dealing with the boundary of the component. 
   A hole may consist of 
@@ -3246,7 +3251,7 @@ can be answered in $\OhOf{\log_B{N}}$ I/Os.
 
 
 \begin{acknowledgements}
-The author's wish to thank the School of Computer Science, Carleton University 
+The authors wish to thank the School of Computer Science, Carleton University 
 and the Natural Sciences and Engineering Research Council of Canada for financial 
 assistance.
 The work was done while the second author was at the
