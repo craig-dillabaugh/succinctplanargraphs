@@ -1697,17 +1697,15 @@ $\lg{N}$ bit pointers to represent the graph structure, their
 structure requires $\OhOf{N \lg{N}}$ bits for any size $\bitsPerKey$. 
 If $\bitsPerKey$ is
 a small constant, our space complexity becomes $\OhOf{N} +
-\ohOf{N}$, which represents a savings of $\lg{N}$ bits compared to
-the $\OhOf{N \lg{N}}$ space of of Agarwal~\etal. 
-In the worst case
-when $\bitsPerKey = \ThetaOf{\lg{N}}$, our space complexity is 
-$\ThetaOf{N \lg{N}}$, which is asymptotically equivalent to that of
-Agarwal~\etal. 
-However, even in this case, our structure can save a
-significant amount of space due to the fact that we store the actual
-graph structure with $\OhOf{N}$ bits (the $N\bitsPerKey$ and $\ohOf{N\bitsPerKey}$
-terms in our space requirements are related directly to space required
-to store keys), compared to $\OhOf{N \lg{N}}$ bits in their
+\ohOf{N}$.
+In the worst case when $\bitsPerKey = \ThetaOf{\lg N}$, our 
+space complexity is $\ThetaOf{N \lg N}$, which is asymptotically 
+equivalent to that of Agarwal~\etal.
+However, even in this case, our structure can save a significant amount
+of space due to the fact that we store the actual graph structure with
+$\OhOf{N}$ bits (the $N \bitsPerKey$ and $\ohOf{N\bitsPerKey}$ terms
+in our space requirements are related directly to the space
+required to store keys), compared to $\OhOf{N \lg N}$ bits in their
 representation.
 
 % ----------------------------------------------------------------------------
