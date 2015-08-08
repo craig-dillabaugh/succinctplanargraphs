@@ -1,0 +1,129 @@
+Dear Mr. Dillabaugh, 
+
+We have received the reports from our advisers on your manuscript, 
+"I/O-Efficient Path Traversal in Succinct Planar Graphs", which you submitted to 
+Algorithmica.
+
+Based on the advice received, I feel your manuscript could be accepted for 
+publication should you be prepared to incorporate minor revisions.  When 
+preparing your revised manuscript, you are asked to carefully consider the 
+reviewer comments which are attached, and submit a list of responses to the 
+comments.  Your list of responses should be uploaded as a file in addition to 
+your revised manuscript.
+
+Your revised manuscript will be due on Aug 22, 2015.
+
+"Please make sure to submit your editable source files (i. e. Word, TeX)."
+
+In order to submit your revised manuscript electronically, please access the 
+following web site:
+
+      http://algo.edmgr.com/
+
+Your username is: ******** 
+Your password is: ******** 
+
+Click "Author Login" to submit your revision.
+
+We look forward to receiving your revised manuscript.
+
+Thank you.
+
+Best regards,
+Ming-Yang Kao, PhD
+Editor-in-Chief
+Algorithmica
+
+
+COMMENTS FOR THE AUTHOR:
+
+Reviewer #1: The paper describes a succinct representation of a planar graph 
+with bounded degree that supports I/O-efficient traversal of paths. Given a 
+bounded-degree planar graph with N vertices, each associated with a key of q = 
+O(log N) bits, the representation takes Nq + o(Nq) + O(N) bits and supports 
+traversing a path of length K in O(K/ \log B) time, where B is the block size in 
+the I/O model. The paper then describes an application of this result by 
+describing how to represent a terrain, given as a triangular irregular network, 
+that supports path traversals on the terrain I/O-efficiently. It also describes 
+how this terrain representation can be used to support queries, such as 
+reporting terrain profiles, trickle paths and connected components, efficiently.
+The paper combines a few different earlier results on planar graph 
+representations, and uses some of the standard techniques from succinct data 
+structures to obtain the results, although it seems to require a considerable 
+amount of effort to make the things work. The main result as such seems a bit 
+restrictive as it only applies to planar graphs with bounded (constant) degree. 
+But the application of this result to the terrain representation seems to give a 
+good motivation for this problem.
+Overall, I think the paper can be accepted for publication.
+
+Detailed comments:
+(line numbers refer to the line numbers in the margin)
+
+The result for the planar graph representation is stated without the bounded 
+degree restriction at some places (eg., Section 1.2, Item 1). This should be 
+fixed.
+
+1. P1 L44-45: ".. as more data can be swapped between memory and disk in a single 
+I/O operation" -- more "useful" data?
+Comment: Fixed.
+
+
+2. P7 L30: "concatenation of t bit vectors" -- t -> t+1
+Comment: Fixed.
+
+P9 L42-45: it would make it less confusing to give a different name to the 
+parameter {\bf B}. Also, the sentence "This ensures that every subregion fits in 
+a disk block." doesn't make sense, as it's not clear what the value of {\bf B} 
+is with respect ot the block size B.
+
+Comment: Suggestions? Would it be enough point out that we derive the exact 
+value of {\bf B} later?  As for changing the name, I will try to think of some
+ideas. It sort of seems like bikeshedding, and I think we spent quite a while
+trying to come up with what we have to this point. 
+
+
+P9 L56: Here and at several other places - the parentheses after rank (and 
+select) do not "match"  (open parenthesis is bigger than the close)
+
+Commnet: Can't seem to fix this.  Latex %$@#$^# !
+
+P10 L14: \pi x -> \pi_x
+Comment:  Fixed ... (confirm)
+
+
+P13 L24: later -> latter
+Comment:  Fixed
+
+P13 L55: ".. which represents a savings of .." -- represents is not the correct 
+word here
+
+Comment: TODO we could use 'encodes' instead of represents?
+
+
+P14 L11: store -> storing
+Comment:  Fixed
+
+P14 L61: require -> required
+Comment: Fixed.
+
+P15 L27-28: ".. lookup .. is O(1)" -> ".. lookup .. takes O(1) I/Os"
+Comment: Fixed.
+
+P23 L42: "edge of t; " -> "edge of t, "
+Comment:  Fixed.
+
+P28 L5-6: the sentence could be rephrased to make it sound better
+
+Changed: 
+In this paper all faces are triangles, thus to find the entry edge
+  at the triangle level is a constant-time operation using any
+  selection technique.
+=>
+  In the case presented in this section, we are dealing with 
+  triangular faces, so the entry edge can be found in constant time.
+  
+Is that even an improvement?
+  
+
+P29 L9: author's -> authors ?
+Comment:  Fixed.
