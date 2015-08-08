@@ -337,7 +337,7 @@ For completeness, we prove all parts of the lemma here.
   This is useful because the conversion between region and subregion
   labels is done differently for subregion boundary and subregion-interior
   vertices.
-  Vector $\idxvec$ is the concatenation of $t$ bit vectors
+  Vector $\idxvec$ is the concatenation of $t+1$ bit vectors
   $\idxvec[1], \idxvec[2], \dots, \idxvec[t+1]$.
   For $1 \le i \le t$, the subvector $\idxvec[i]$ has length equal to the
   number of subregion boundary vertices in $\reg[i]$.
@@ -619,7 +619,7 @@ This representation of $\ds$ is illustrated in Figure~\ref{fig:block-packing}.
 
 In order to facilitate the efficient lookup of subregions in $\ds$, we augment
 it with two bit vectors $\fst$ and $\diff$, each represented to support
-constant-time $\rankop$ and $\selop$ queries (see Lemma~\ref{lem:rank_select}).
+constant-time $\rankopsym$ and $\selopsym$ queries (see Lemma~\ref{lem:rank_select}).
 If $Q$ is the total number of subregions in~$G$, each of the two vectors has
 length $Q$.
 Their entries are defined as follows:
@@ -649,7 +649,7 @@ following structures:
   This encoding involves a permutation $\perm[x]$ of the vertices in
   $\nb[\alpha]{x}$.
 \item A bit vector $\term[x]$ of length $\size{\nb[\alpha]{x}}$ for which
-  $\term[x][k] = 1$ if and only if the $k$th vertex in $\perm{x}$ is a terminal
+  $\term[x][k] = 1$ if and only if the $k$th vertex in $\perm[x]$ is a terminal
   vertex of $\nb[\alpha]{x}$.
 \item A $(\lg \alpha)$-bit integer $\pos[x]$ that records the position of
   $x$ in $\perm[x]$.
@@ -1024,7 +1024,7 @@ In order to report the graph labels of vertices in the
   $\alpha$-neighbourhoods only extend to the boundary vertices of the
   region, such that the path from $v$ to a terminal node may be less
   than $\log_d{\succblksize^{1/3}}$. 
-  In the later case the terminal vertex
+  In the latter case the terminal vertex
   corresponds to a region boundary vertex.
 
   Without loss of generality, assume that traversal starts with an
@@ -1108,7 +1108,7 @@ strategy recursively identifies a separator on the nodes of the graph
 $G$, until $G$ is divided into regions of size $r$ which can fit on a
 single block (in this context, region is used generically to refer to
 the size of partitions in the graph as in Lemma
-\ref{lem:fred_graph_sep}). However, rather than store
+\ref{lem:fred_graph_sep}). However, rather than storing
 $\alpha$-nieghbourhoods of size $\sqrt{r}$ for each boundary vertex,
 larger $\alpha$-neighbourhoods are stored for a subset of the boundary
 vertices. 
@@ -1206,7 +1206,7 @@ done in Lemma~\ref{lem:cycle_sep_size}.
   we can characterize the size of the
   resulting subsets by $|N_1| = \epsilon N + \OhOf{\sqrt{N}}$ and
   $|N_2| = (1-\epsilon)N + \OhOf{\sqrt{N}}$. Following the proof of
-  Lemma 1 in \cite{Frederickson87}, the total separator size require to
+  Lemma 1 in \cite{Frederickson87}, the total separator size required to
   split $G$ into regions of size at most $N$ then becomes
   $\BigOh{\frac{N}{\sqrt{r}}}$.
 \end{proof}
@@ -1265,7 +1265,7 @@ The first element in the corresponding tuple is a pointer to the
 $\regnbvec$, and the second element of the tuple indicates from where
 to resume traversal.
 Using $\regptable$ incurs at most a single additional I/O.
-Thus, lookup for region boundary vertices is $\OhOf{1}$.
+Thus, lookup for region boundary vertices is takes $\OhOf{1}$ I/Os.
 
 For subregion boundary vertices, we apply the same indirection
 to locate the proper $\alpha$-neighbourhood.
