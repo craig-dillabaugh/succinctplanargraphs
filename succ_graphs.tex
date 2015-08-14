@@ -213,7 +213,9 @@
 \newcommand{\subregbdvec}{\bdvec[S]}
 \newcommand{\reglt}{\prec_R}
 \newcommand{\subreglt}{\prec_S}
-\newcommand{\succblksize}{\textbf{\textsc{B}}}
+%\newcommand{\succblksize}{\textbf{\textsc{B}}}
+%\newcommand{\succblksize}{\textbf{b}}
+\newcommand{\succblksize}{\beta}
 
 \newcommand{\regptable}{\mathcal{P}_R}
 \newcommand{\subregptable}{\mathcal{P}_{SR}}
@@ -949,7 +951,7 @@ For completeness, we prove all parts of the lemma here.
   This is useful because the conversion between region and subregion
   labels is done differently for subregion boundary and subregion-interior
   vertices.
-  Vector $\idxvec$ is the concatenation of $t$ bit vectors
+  Vector $\idxvec$ is the concatenation of $t+1$ bit vectors
   $\idxvec[1], \idxvec[2], \dots, \idxvec[t+1]$.
   For $1 \le i \le t$, the subvector $\idxvec[i]$ has length equal to the
   number of subregion boundary vertices in $\reg[i]$.

@@ -66,7 +66,7 @@ fixed.
 
 Comment: 
 Fixed specified reference.
-p.5 we describe and alternate scheme for blocking [bounded degree] planar ...
+p.5 we describe an alternate scheme for blocking [bounded degree] planar ...
 
 
 +------------------------------------------------------------------------------+
