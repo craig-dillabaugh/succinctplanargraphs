@@ -64,19 +64,28 @@ Detailed comments:
 degree restriction at some places (eg., Section 1.2, Item 1). This should be 
 fixed.
 
-Comment: 
-Fixed specified reference.
-p.5 we describe an alternate scheme for blocking [bounded degree] planar ...
+Author Response:
+We fixed the specified reference (Section 1.2, Item 1 on p.3) and fixed a 
+second reference on p.5 (last sentence before section 3.1).  There were the 
+only such references we found in our search.
+
 
 
 +------------------------------------------------------------------------------+
 1. P1 L44-45: ".. as more data can be swapped between memory and disk in a single 
 I/O operation" -- more "useful" data?
-Comment: Fixed.
+
+Author Response:
+We have changed this as requested.  See the final sentence of the first paragraph,
+Section 1 on p.1.
 
 +------------------------------------------------------------------------------+
 2. P7 L30: "concatenation of t bit vectors" -- t -> t+1
-Comment: Fixed.
+
+Author Response:
+We have changed this as requested.  See p.7, fourth line of the paragraph with
+the heading 'Identifying subregion boundary vertices.'
+
 
 +------------------------------------------------------------------------------+
 3. P9 L42-45: it would make it less confusing to give a different name to the 
@@ -84,37 +93,43 @@ parameter {\bf B}. Also, the sentence "This ensures that every subregion fits in
 a disk block." doesn't make sense, as it's not clear what the value of {\bf B} 
 is with respect ot the block size B.
 
-Comment: Suggestions? Would it be enough point out that we derive the exact 
-value of {\bf B} later?  As for changing the name, I will try to think of some
-ideas. It sort of seems like bikeshedding, and I think we spent quite a while
-trying to come up with what we have to this point. 
+Author Response:
+After considering a number of possibilities, we selected a new symbol (lower-case
+bold 'b') for the succinct block size parameter.  We also added a statement that
+points the reader to the section in the paper where the value of the parameter is
+calculated, and its relation to B.  In the current draft this change can be found
+on page 9, first line of the second last paragraph on the page.
 
-Fixed: Added noted that derivation of \succblksize is defined in Eq 1, Lemma 4
-as suggested by Anil.  Keeping the current name.
+
 
 +------------------------------------------------------------------------------+
 4. P9 L56: Here and at several other places - the parentheses after rank (and 
 select) do not "match"  (open parenthesis is bigger than the close)
 
-Comment: I fixed all the cases where rank() or select() appear.  In this case
-the mismatch in paren size is noticable.  In other cases where the parens contain
-some symbol(s) I haven't changed the paren sizes (and have no idea how to), but
-I cannot see if they are still mismatched, so not sure if it is worth the effort.
-
-The places where I have made changes:
-
-Fixed P9 L56
-      P10 L43
-      P11 L20
-      P18 L6-7
+Author Response:
+We have found all instances where parentheses where mismatched that we could.  These
+have been corrected sot that the open and close parentheses match. In each case we
+simply removed the parentheses, as they were uncessary. The fixes appear at the 
+following locations within our paper:
+- p.9  last paragraph, 2nd line.
+- p.10 2 paragraphs above Lemma 4, 2nd line.
+- p.11 3rd paragraph (just above paragraph labeled \alpha-Neighbourhoods), 2nd and
+       third lines.
+- p.18 1st paragraph, 2nd line.
 
 +------------------------------------------------------------------------------+
 5. P10 L14: \pi x -> \pi_x
-Comment:  Fixed
+
+Author Response:
+This has been corrected.  See p.10, point #1 in the section labeled "Succcinct
+encoding of \alpha-neighbourhoods".  
 
 +------------------------------------------------------------------------------+
 6. P13 L24: later -> latter
-Comment:  Fixed
+
+Author Response:
+This has been fixed.  See last sentence in the 1st paragraph in the proof to
+Lemma 7 on p.13.
 
 +------------------------------------------------------------------------------+
 7. P13 L55: ".. which represents a savings of .." -- represents is not the correct 
