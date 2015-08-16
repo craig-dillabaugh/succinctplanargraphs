@@ -60,7 +60,7 @@ Detailed comments:
 (line numbers refer to the line numbers in the margin)
 
 +-----------------------------------------------------------------------------+
-0. The result for the planar graph representation is stated without the bounded 
+1. The result for the planar graph representation is stated without the bounded 
 degree restriction at some places (eg., Section 1.2, Item 1). This should be 
 fixed.
 
@@ -72,7 +72,7 @@ only such references we found in our search.
 
 
 +------------------------------------------------------------------------------+
-1. P1 L44-45: ".. as more data can be swapped between memory and disk in a single 
+2. P1 L44-45: ".. as more data can be swapped between memory and disk in a single 
 I/O operation" -- more "useful" data?
 
 Author Response:
@@ -80,7 +80,7 @@ We have changed this as requested.  See the final sentence of the first paragrap
 Section 1 on p.1.
 
 +------------------------------------------------------------------------------+
-2. P7 L30: "concatenation of t bit vectors" -- t -> t+1
+3. P7 L30: "concatenation of t bit vectors" -- t -> t+1
 
 Author Response:
 We have changed this as requested.  See p.7, fourth line of the paragraph with
@@ -88,7 +88,7 @@ the heading 'Identifying subregion boundary vertices.'
 
 
 +------------------------------------------------------------------------------+
-3. P9 L42-45: it would make it less confusing to give a different name to the 
+4. P9 L42-45: it would make it less confusing to give a different name to the 
 parameter {\bf B}. Also, the sentence "This ensures that every subregion fits in 
 a disk block." doesn't make sense, as it's not clear what the value of {\bf B} 
 is with respect ot the block size B.
@@ -103,7 +103,7 @@ on page 9, first line of the second last paragraph on the page.
 
 
 +------------------------------------------------------------------------------+
-4. P9 L56: Here and at several other places - the parentheses after rank (and 
+5. P9 L56: Here and at several other places - the parentheses after rank (and 
 select) do not "match"  (open parenthesis is bigger than the close)
 
 Author Response:
@@ -118,54 +118,71 @@ following locations within our paper:
 - p.18 1st paragraph, 2nd line.
 
 +------------------------------------------------------------------------------+
-5. P10 L14: \pi x -> \pi_x
+6. P10 L14: \pi x -> \pi_x
 
 Author Response:
 This has been corrected.  See p.10, point #1 in the section labeled "Succcinct
 encoding of \alpha-neighbourhoods".  
 
 +------------------------------------------------------------------------------+
-6. P13 L24: later -> latter
+7. P13 L24: later -> latter
 
 Author Response:
 This has been fixed.  See last sentence in the 1st paragraph in the proof to
 Lemma 7 on p.13.
 
 +------------------------------------------------------------------------------+
-7. P13 L55: ".. which represents a savings of .." -- represents is not the correct 
+8. P13 L55: ".. which represents a savings of .." -- represents is not the correct 
 word here
 
-Fixed: Section has been re-worded.
+Author Response:
+We ended up rewording the whole paragraph.  See the final paragraph of p.13.
 
 +------------------------------------------------------------------------------+
-8. P14 L11: store -> storing
-Comment:  Fixed
+9. P14 L11: store -> storing
+
+
+Author Response:
+We fixed this.  See page 14, 1st paragraph, 5th line.
 
 +------------------------------------------------------------------------------+
-9. P14 L61: require -> required
-Comment: Fixed.
+10. P14 L61: require -> required
+
+Author Response:
+Fixed, see last line on p.14.
 
 +------------------------------------------------------------------------------+
-10. P15 L27-28: ".. lookup .. is O(1)" -> ".. lookup .. takes O(1) I/Os"
-Comment: Fixed.
+11. P15 L27-28: ".. lookup .. is O(1)" -> ".. lookup .. takes O(1) I/Os"
+
+Author Response:
+Fixed. See last sentence in 2nd paragraph in Proof to Lemma 11 on p.15.
+
 
 +------------------------------------------------------------------------------+
-11. P23 L42: "edge of t; " -> "edge of t, "
-Comment:  Fixed. 
+12. P23 L42: "edge of t; " -> "edge of t, "
+
+Author Response:
+Fixed.  See enumerated list Item #3, 1st line in Section 6.2.1.
+
 
 +------------------------------------------------------------------------------+
-12. P28 L5-6: the sentence could be rephrased to make it sound better
+13. P28 L5-6: the sentence could be rephrased to make it sound better
 
 
-Changed: 
-In this paper all faces are triangles, thus to find the entry edge
-  at the triangle level is a constant-time operation using any
-  selection technique.
-=>
-  In the case presented in this section, we are dealing with 
-  triangular faces, so the entry edge can be found in constant time.
+Author Response:
+Changed from:
+"In this paper all faces are triangles, thus to find the entry edge
+ at the triangle level is a constant-time operation using any
+ selection technique."
+
+ to =>
+ 
+"In the case presented in this section, we are dealing with 
+ triangular faces, so the entry edge can be found in constant time."
   
   
 +------------------------------------------------------------------------------+
-13. P29 L9: author's -> authors ?
-Comment:  Fixed.
+14. P29 L9: author's -> authors ?
+
+Author Response:
+Fixed.  See Acknowledgements paragraph on p.29.
